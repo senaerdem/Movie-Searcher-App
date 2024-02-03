@@ -20,5 +20,5 @@ The entered title is sent to the OMDB API to search for relevant movies.
 Found movies are displayed in a custom TableView cell.
 After selecting a movie, a web viewer is opened using SFSafariViewController to show the IMDB page.
 
-<img src="https://github.com/senaerdem/Movie-Searcher-App/assets/98752496/84f0510d-6a61-4015-b293-d2d440bee2a1" width="200" height="400" />
-<img src="https://github.com/senaerdem/Movie-Searcher-App/assets/98752496/8075e64f-cc4d-4403-91b3-a1b608354781" width="200" height="400" />
+<img src="https://github.com/senaerdem/Movie-Searcher-App/assets/98752496/84f0510d-6a61-4015-b293-d2d440bee2a1" width="300" height="600" />
+<img src="https://github.com/senaerdem/Movie-Searcher-App/assets/98752496/8075e64f-cc4d-4403-91b3-a1b608354781" width="300" height="600" />

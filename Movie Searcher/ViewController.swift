@@ -40,6 +40,41 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate
         guard let text = field.text, !text.isEmpty else {
             return
         }
+        
+        let query = text.replacingOccurrences(of: " ", with: "%20")
+        
+        movies.removeAll()
+        
+        URLSession.shared.dataTask(with: URL(string: "https://www.omdbapi.com/?apikey=3aea79ac&s=\(query)&type=movie")!, completionHandler: { data, response, error in
+            
+            guard let data = data, error == nil else {
+                return
+            }
+            
+            // Connect
+            var result: MovieResult?
+            do {
+                result = try JSONDecoder().decode(MovieResult.self, from: data)
+            }
+            catch {
+                print("error")
+            }
+            
+            guard let finalResult = result else {
+                return
+            }
+            
+            // Update our movies array
+            
+            let newMovies = finalResult.Search
+            self.movies.append(contentsOf: newMovies)
+            
+            // Refresh our table
+            DispatchQueue.main.async {
+                self.table.reloadData()
+            }
+            
+        }).resume()
     }
     
     // Table
@@ -60,6 +95,18 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate
 
 }
 
-struct Movie {
+struct MovieResult: Codable {
+    let Search: [Movie]
+}
+
+struct Movie: Codable {
+    let Title: String
+    let Year: String
+    let imdbID: String
+    let _Type: String
+    let Poster: String
     
+    private enum CodingKeys: String, CodingKey {
+        case Title, Year, imdbID, _Type = "Type", Poster
+    }
 }
